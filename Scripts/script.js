@@ -1,6 +1,3 @@
-let logoutTimer;
-
-// Function to redirect to the login page
 function redirectToLogin() {
     window.location.href = 'login.html'; // Change this to your actual login page URL
 }
@@ -31,7 +28,7 @@ function checkUserStatus() {
         }
     }
 
-    // If userData is found but user is not logged in
+    // If userData is not found or user is not logged in
     if (!userData || !userData.loggedIn) {
         console.log("User not logged in or no stored data");
         document.getElementById('registerNow').style.display = 'block'; // Show register button
@@ -41,9 +38,6 @@ function checkUserStatus() {
         console.log("User logged in");
         document.getElementById('registerNow').style.display = 'none'; // Hide register button
         userIcon.style.display = 'flex'; // Show user icon
-
-        // Start the logout timer
-        startLogoutTimer();
 
         // Call the function to update content based on gender
         updateContentBasedOnGender();
@@ -85,65 +79,9 @@ function updateContentBasedOnGender() {
     }
 }
 
-// Start the logout timer
-function startLogoutTimer() {
-    // Set the timer for 10 minutes (600000 milliseconds)
-    logoutTimer = setTimeout(() => {
-        logout(); // Call the logout function when the timer expires
-    }, 600000); // Change this duration as needed
-}
-
-// Function to log out the user without clearing user data
-function logout() {
-    // Mark the user as logged out by updating their status in localStorage
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.includes("@gmail.com")) {
-            const userData = JSON.parse(localStorage.getItem(key));
-            userData.loggedIn = false; // Mark the user as logged out
-            localStorage.setItem(key, JSON.stringify(userData));
-            break;
-        }
-    }
-
-    // Show the register button
-    document.getElementById('registerNow').style.display = 'block';
-
-    // Hide the user icon dropdown
-    document.getElementById('userIcon').style.display = 'none';
-
-    // Optionally, redirect to login page after logout
-    // redirectToLogin();
-
-    console.log("User logged out.");
-}
-
-// Simulate login success (call this function after successful login)
-function loginSuccess(userEmail, gender) {
-    // Store user data in localStorage
-    const userData = {
-        email: userEmail,
-        gender: gender,
-        loggedIn: true
-    };
-    localStorage.setItem(userEmail, JSON.stringify(userData));
-
-    // Hide the register button
-    document.getElementById('registerNow').style.display = 'none';
-
-    // Show the user icon dropdown
-    document.getElementById('userIcon').style.display = 'flex';
-
-    // Start the logout timer
-    startLogoutTimer();
-
-    console.log("User logged in.");
-}
-
 // Initial call to check user status
 checkUserStatus();
 
-// Function to handle page scroll effects
 const onScroll = () => {
     if (window.scrollY > bannerHeight) {
         navbar.style.backgroundColor = '#333';
@@ -156,7 +94,6 @@ const onScroll = () => {
 
 window.addEventListener('scroll', onScroll);
 
-// Slideshow functionality
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const totalSlides = slides.length;
@@ -184,6 +121,7 @@ function prevSlide() {
 }
 
 setInterval(nextSlide, 5000);
+
 showSlide(currentSlide);
 
 // Function to show the cookie banner after a delay
@@ -208,19 +146,28 @@ function denyCookies() {
 // Use setTimeout to delay the banner appearance
 setTimeout(showCookieBanner, 3500); // Show the banner after 3.5 seconds
 
-// Event listeners for cookie buttons
+// Event listeners for buttons
 document.getElementById('accept-cookies').addEventListener('click', acceptCookies);
 document.getElementById('deny-cookies').addEventListener('click', denyCookies);
+
+// Simulate login success (call this function after successful login)
+function loginSuccess() {
+    // Hide the register button
+    document.getElementById('registerNow').style.display = 'none';
+
+    // Show the user icon dropdown
+    document.getElementById('userIcon').style.display = 'flex';
+}
 
 // Simulate logout functionality
 document.getElementById('logout').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default link action
 
-    // Clear the logout timer
-    clearTimeout(logoutTimer);
+    // Show the register button
+    document.getElementById('registerNow').style.display = 'block';
 
-    // Log the user out
-    logout();
+    // Hide the user icon dropdown
+    document.getElementById('userIcon').style.display = 'none';
 });
 
 document.addEventListener('DOMContentLoaded', function () {
