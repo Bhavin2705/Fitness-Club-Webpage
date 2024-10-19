@@ -15,6 +15,19 @@ const bannerHeight = banner ? banner.offsetHeight : 0;
 
 const userIcon = document.getElementById("userIcon");
 
+// Function to update login status in local storage
+function updateUserLoginStatus(email, status) {
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === email) { // Check for exact match
+            let userData = JSON.parse(localStorage.getItem(key));
+            userData.loggedIn = status; // Set loggedIn flag
+            localStorage.setItem(key, JSON.stringify(userData)); // Update localStorage
+            break;
+        }
+    }
+}
+
 // Function to check if user is logged in and show/hide UI elements accordingly
 function checkUserStatus() {
     let userData;
@@ -22,7 +35,7 @@ function checkUserStatus() {
     // Loop through localStorage to find user data
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key.includes("@gmail.com")) {
+        if (key.includes("@")) { // Check if any email is stored
             userData = JSON.parse(localStorage.getItem(key));
             break;
         }
@@ -121,7 +134,6 @@ function prevSlide() {
 }
 
 setInterval(nextSlide, 5000);
-
 showSlide(currentSlide);
 
 // Function to show the cookie banner after a delay
@@ -151,23 +163,20 @@ document.getElementById('accept-cookies').addEventListener('click', acceptCookie
 document.getElementById('deny-cookies').addEventListener('click', denyCookies);
 
 // Simulate login success (call this function after successful login)
-function loginSuccess() {
-    // Hide the register button
-    document.getElementById('registerNow').style.display = 'none';
-
-    // Show the user icon dropdown
-    document.getElementById('userIcon').style.display = 'flex';
+function loginSuccess(email) {
+    updateUserLoginStatus(email, true); // Update the loggedIn flag
+    document.getElementById('registerNow').style.display = 'none'; // Hide register button
+    userIcon.style.display = 'flex'; // Show user icon
+    checkUserStatus(); // Update UI based on new login status
 }
 
 // Simulate logout functionality
 document.getElementById('logout').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default link action
-
-    // Show the register button
-    document.getElementById('registerNow').style.display = 'block';
-
-    // Hide the user icon dropdown
-    document.getElementById('userIcon').style.display = 'none';
+    updateUserLoginStatus(localStorage.getItem('loggedInEmail'), false); // Update the loggedIn flag
+    document.getElementById('registerNow').style.display = 'block'; // Show register button
+    userIcon.style.display = 'none'; // Hide user icon
+    // redirectToLogin(); // Redirect to login page
 });
 
 document.addEventListener('DOMContentLoaded', function () {
