@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-light" id="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="./">
+                <img src="./assets/image.png" alt="Energifit" class="logo" id="logo">
+            </a>
+            
+            <!-- Add the menu toggle input -->
+            <input type="checkbox" id="menuToggle">
+            
+            <!-- Hamburger Icon -->
+            <label for="menuToggle" class="menu-icon">
+                <i class="fas fa-bars"></i>
+            </label>
+    
+            <div class="navbar-menu d-flex justify-content-center">
+                <a class="nav-link" href="#banner">Home</a>
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#programs">Programs</a>
+                <a class="nav-link" href="#trainers">Trainers</a>
+                <a class="nav-link" href="#pricing-plans">Plans</a>
+                <a class="nav-link" href="#contact-us">Contact Us</a>
+            </div>
+    
+            <div class="d-flex align-items-center" id="user-controls">
+                <button class="btn register-btn" id="registerNow" onclick="redirectToLogin()">Register Now</button>
+    
+                <div class="user-icon-container ms-3" id="userIcon" style="display:none;">
+                    <span id="genderIcon"><i class="fas fa-user-circle"></i></span>
+                    <button class="btn dropdown-toggle" type="button" aria-expanded="false" id="accountButton">
+                        My Account
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" id="logout" href="#">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

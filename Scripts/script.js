@@ -30,6 +30,24 @@ const onScroll = () => {
 // Attach the scroll event listener
 window.addEventListener('scroll', onScroll);
 
+document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+    const intervalTime = 3000; // 3 seconds for each slide
+
+    // Function to change the active slide
+    function changeSlide() {
+        slides[currentIndex].classList.remove("active"); // Remove active class from the current slide
+        currentIndex = (currentIndex + 1) % totalSlides; // Move to the next slide
+        slides[currentIndex].classList.add("active"); // Add active class to the next slide
+    }
+
+    // Set an interval to change slides automatically
+    setInterval(changeSlide, intervalTime);
+});
+
+
 // Update login status in local storage
 function updateUserLoginStatus(email, status) {
     if (localStorage.getItem(email)) { // Check if the email exists in local storage

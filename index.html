@@ -15,12 +15,24 @@
 </head>
 
 <body>
+
+
+
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-light" id="navbar">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand" href="./">
                 <img src="./assets/image.png" alt="Energifit" class="logo" id="logo">
             </a>
+            
+            <!-- Add the menu toggle input -->
+            <input type="checkbox" id="menuToggle">
+            
+            <!-- Hamburger Icon -->
+            <label for="menuToggle" class="menu-icon">
+                <i class="fas fa-bars"></i>
+            </label>
+    
             <div class="navbar-menu d-flex justify-content-center">
                 <a class="nav-link" href="#banner">Home</a>
                 <a class="nav-link" href="#about">About</a>
@@ -29,12 +41,10 @@
                 <a class="nav-link" href="#pricing-plans">Plans</a>
                 <a class="nav-link" href="#contact-us">Contact Us</a>
             </div>
-
+    
             <div class="d-flex align-items-center" id="user-controls">
-                <button class="btn register-btn" id="registerNow" onclick="redirectToLogin()">
-                    Register Now
-                </button>
-
+                <button class="btn register-btn" id="registerNow" onclick="redirectToLogin()">Register Now</button>
+    
                 <div class="user-icon-container ms-3" id="userIcon" style="display:none;">
                     <span id="genderIcon"><i class="fas fa-user-circle"></i></span>
                     <button class="btn dropdown-toggle" type="button" aria-expanded="false" id="accountButton">
@@ -44,24 +54,25 @@
                         <li><a class="dropdown-item" id="logout" href="#">Log Out</a></li>
                     </ul>
                 </div>
-                
-
             </div>
         </div>
     </nav>
+    
+
+
 
     <!-- Banner Slider -->
     <div class="banner" id="banner"> <!-- Add id="banner" here -->
         <div class="banner-slider">
             <div class="slides">
-                <div class="slide active" style="background-image: url('./assets/banner1.jpg');">
+                <div class="slide active" style="background-image: url('./assets/A.jpg');">
                     <div class="overlay"></div>
                     <div class="content">
                         <h2>Welcome to Energifit</h2>
                         <p>Transform your life with fitness</p>
                     </div>
                 </div>
-                <div class="slide" style="background-image: url('./assets/banner2.jpg');">
+                <div class="slide" style="background-image: url('./assets/B.jpg');">
                     <div class="overlay"></div>
                     <div class="content">
                         <h2>Reach Your Peak Performance</h2>
@@ -130,6 +141,10 @@
             </div>
         </div>
     </section>
+
+
+
+    <!-- Classes Section -->
 
     <section class="classes-section spad" id="programs">
         <div class="container">
@@ -223,12 +238,14 @@
                         <a href="" class="site-btn sb-gradient">Join Now</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
 
+
+
+    <!-- Trainers Section -->
     <section class="trainers-section" id="trainers">
         <div class="container">
             <div class="section-title text-center">
@@ -292,6 +309,10 @@
         </div>
     </section>
 
+
+
+    <!-- Pricing section -->
+
     <section id="pricing-plans" class="pricing-section spad">
         <div class="container">
             <div class="section-title text-center">
@@ -351,6 +372,9 @@
     </section>
 
 
+
+
+
     <!-- Testimonials Section -->
 
     <section class="testimonial-area">
@@ -399,7 +423,7 @@
                     <div class="client-info">
                         <div class="client-pic">
                             <a href="#">
-                                <img src="1.jpg" alt="client3">
+                                <img src="./assets/3.jpg" alt="client3">
                             </a>
                         </div>
                         <div class="client-details">
@@ -415,7 +439,7 @@
                     <div class="client-info">
                         <div class="client-pic">
                             <a href="#">
-                                <img src="1.jpg" alt="client4">
+                                <img src="./assets/4.jpg" alt="client4">
                             </a>
                         </div>
                         <div class="client-details">
@@ -431,7 +455,7 @@
                     <div class="client-info">
                         <div class="client-pic">
                             <a href="#">
-                                <img src="1.jpg" alt="client5">
+                                <img src="./assets/5.jpg" alt="client5">
                             </a>
                         </div>
                         <div class="client-details">
@@ -445,7 +469,7 @@
 
 
 
-
+        <!-- Contact Us -->
         <section id="contact-us">
             <div class="contact-container">
                 <div class="contact-map">
@@ -482,6 +506,9 @@
                 <button id="accept-cookies">Accept all</button>
             </div>
         </div>
+
+
+
 
 
         <!-- Footer -->
@@ -540,75 +567,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
         <script src="./Scripts/script.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                $('.classes-slider').owlCarousel({
-                    items: 3, // Number of items to show
-                    loop: true,
-                    margin: 30,
-                    nav: true,
-                    dots: true,
-                    autoplay: true,
-                    autoplayTimeout: 5000,
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        768: {
-                            items: 2
-                        },
-                        992: {
-                            items: 3
-                        }
-                    }
-                });
-
-                // Initialization for the trainers section
-                $('.trainers-slider').owlCarousel({
-                    items: 3, // Number of items to show
-                    loop: true,
-                    margin: 30,
-                    nav: true,
-                    dots: true,
-                    autoplay: true,
-                    autoplayTimeout: 5000,
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        768: {
-                            items: 2
-                        },
-                        992: {
-                            items: 3
-                        }
-                    }
-                });
-            });
-
-
-            $(document).ready(function () {
-                $('.testimonial-content').owlCarousel({
-                    loop: true,
-                    nav: false,
-                    dots: true,
-                    margin: 50,
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        768: {
-                            items: 1
-                        },
-                        992: {
-                            items: 2
-                        }
-                    }
-                })
-            })
+        <script src="./Scripts/owlCarousel.js">
+            
         </script>
 
-        </script>
 </body>
 
 </html>

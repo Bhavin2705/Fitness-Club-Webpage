@@ -11,6 +11,7 @@ body {
 
 
 /* -----------------------NAVBAR START------------------------------ */
+/* Base Navbar Styles */
 .navbar {
     padding: 15px;
     background-color: transparent;
@@ -62,9 +63,9 @@ body {
 
 /* User Control Styles */
 #user-controls {
-    display: flex; /* Flex display */
-    align-items: center; /* Center items vertically */
-    gap: 15px; /* Space between items */
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .register-btn {
@@ -82,52 +83,156 @@ body {
     color: #ffffff;
     border-color: #FF6F61;
 }
-/* Ensure proper positioning for dropdown */
+
 .user-icon-container {
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Align items vertically centered */
-    position: relative; /* Ensure the dropdown aligns correctly */
+    display: flex;
+    align-items: center;
+    position: relative;
     color: white;
 }
 
 .dropdown-toggle {
-    background: none; /* No background for the button */
-    border: none; /* No border */
-    color: #00A8CC; /* Button text color */
-    font-weight: 600; /* Button font weight */
-    cursor: pointer; /* Pointer cursor */
+    background: none;
+    border: none;
+    color: #00A8CC;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* Dropdown menu styling */
 .dropdown-menu {
-    display: none; /* Initially hidden */
-    position: absolute; /* Absolute positioning */
-    top: 100%; /* Aligns directly below */
-    left: 0; /* Aligns to the left */
-    margin-top: 5px; /* Optional: add a small margin for spacing */
-    background: #ffffff; /* Background color for dropdown */
-    border: 1px solid #FF6F61; /* Border color */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Box shadow */
-    z-index: 10; /* Ensure it appears above other elements */
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+    background: #ffffff;
+    border: 1px solid #FF6F61;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
-/* Show the dropdown menu when toggled */
 .dropdown-menu.show {
-    display: block; /* Show dropdown when toggled */
+    display: block;
 }
 
-/* Dropdown item styles */
 .dropdown-item {
-    padding: 12px 15px; /* Padding for dropdown items */
-    color: #333333; /* Text color for dropdown items */
-    font-weight: 500; /* Font weight */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+    padding: 12px 15px;
+    color: #333333;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dropdown-item:hover {
-    background-color: #FF6F61; /* Background color on hover */
-    color: #ffffff; /* Text color on hover */
+    background-color: #FF6F61;
+    color: #ffffff;
+}
+
+/* Responsive Styles */
+.menu-icon {
+    display: none;
+    font-size: 22px;
+    color: #00A8CC;
+    cursor: pointer;
+}
+
+/* Menu Toggle */
+#menuToggle {
+    display: none;
+}
+
+#menuToggle:checked ~ .navbar-menu {
+    display: flex;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #2c3e50;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 300px;
+    opacity: 1;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 22px;
+    color: #00A8CC;
+    cursor: pointer;
+}
+
+
+
+/* Breakpoints */
+@media (max-width: 1200px) {
+    .navbar-menu {
+        gap: 20px; /* Reduce gap between items */
+    }
+    
+    #user-controls {
+        gap: 10px; /* Compact user controls */
+    }
+}
+
+@media (max-width: 992px) {
+    .menu-icon {
+        display: block; /* Show the menu icon */
+    }
+
+    .navbar-menu {
+        display: none; /* Hide the menu by default */
+    }
+
+    #menuToggle:checked ~ .navbar-menu {
+        display: flex;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #2c3e50;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        max-height: 300px;
+        opacity: 1;
+    }
+
+    #user-controls {
+        display: none; /* Hide user controls */
+    }
+
+    .navbar {
+        padding: 10px 20px; /* Adjust padding */
+    }
+}
+
+@media (max-width: 890px) {
+    .navbar-brand .logo {
+        width: 150px; /* Smaller logo */
+    }
+
+    .navbar-menu a {
+        padding: 8px 0;
+        font-size: 16px; /* Smaller font size */
+    }
+
+    .navbar-menu {
+        max-height: 250px; /* Further limit the dropdown height */
+    }
+
+    #menuToggle:checked ~ .navbar-menu {
+        max-height: 250px;
+        overflow-y: auto; /* Allow scrolling if necessary */
+    }
+
+    .menu-icon {
+        margin-right: 15px; /* Adjust margin for icon */
+    }
 }
 
 
@@ -635,8 +740,6 @@ p {
     }
     
     .testimonial-area .owl-carousel {
-        /* display: flex; */
-        /* gap: 80px; */
         overflow: hidden;
         padding: 0 20px;
         margin: 0 -40px;
@@ -655,16 +758,18 @@ p {
         border-radius: 45px;
         position: relative;
         z-index: 2;
+        min-height: 350px; /* Minimum height */
+        height: auto; /* Allow it to expand if content is larger */
     }
     
     .single-testimonial p {
         color: #fff;
         font-size: 16px;
         line-height: 24px;
-        padding: 80px;
+        padding: 40px 20px; /* Reduced padding */
         padding-bottom: 30px;
         position: relative;
-
+        margin-top: 30px;
     }
     
     .client-info {
@@ -706,8 +811,6 @@ p {
         border-radius: 50%; /* Keep the image circular */
         object-fit: cover; /* Ensures the image fills the circle without stretching */
     }
-    
-    
     
     .owl-dots {
         text-align: center;
@@ -754,6 +857,7 @@ p {
         height: 100px;
         border-radius: 30%;
     }
+    
     
     
     /* -----------------------------PRICING SECTION STYLES END-------------------------------- */
@@ -831,22 +935,29 @@ p {
         /* color: #333; Darker color for labels */
     }
     
-    .contact-form input, 
-    .contact-form textarea {
-        width: 100%;
-        padding: 12px; /* Increased padding for inputs */
-        /* border: 1px solid #ddd; */
-        border-radius: 10px; /* Rounded corners */
-        font-size: 16px;
-        /* color: #333; */
-        transition: border-color 0.3s ease;
-    }
+    .contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px; /* Increased padding for inputs */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 16px;
+    background-color: #333; /* Set the background color */
+    color: #fff; /* Set the text color */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
 
-    .contact-form input:focus, 
-    .contact-form textarea:focus {
-        /* border-color: #FF6F61; Highlight on focus */
-        outline: none;
-    }
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    background-color: #444; /* Slightly lighter background on focus */
+    color: #fff; /* Keep text color white */
+}
+
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #aaa; /* Lighter color for placeholder */
+}
 
     .contact-form button {
         width: 100%;
