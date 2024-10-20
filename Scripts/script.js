@@ -18,7 +18,7 @@ const userIcon = document.getElementById("userIcon");
 
 // Scroll event logic for changing navbar background based on scroll position
 const onScroll = () => {
-    if (window.scrollY > bannerHeight) {
+    if (window.scrollY > 0.6 * bannerHeight) {
         navbar.style.backgroundColor = '#333';
         navbar.style.color = '#fff';
     } else {

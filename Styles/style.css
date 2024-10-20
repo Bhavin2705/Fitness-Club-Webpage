@@ -1,10 +1,14 @@
 /* Base Styles */
+html{
+    overflow-x: hidden;
+}
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     background-color: #ffffff; 
     color: #333333; 
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
 }
 
 /* Navbar Styles */
@@ -246,42 +250,48 @@ body {
 
 /* -----------------------------BANNER STYLES START-------------------------------- */
 .banner {
-    height: 100vh; /* Base height for larger screens */
+    height: 100vh; /* Full viewport height for larger screens */
     min-height: 700px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    position: relative; /* Ensure positioning for child elements */
+    position: relative;
+    overflow: hidden; /* Prevents white space overflow */
 }
 
 .banner-slider {
     position: relative;
     width: 100%;
-    height: 100%; /* Ensures the slider fills the banner */
+    height: 100%;
     overflow: hidden;
 }
 
 .slides {
     display: flex;
     transition: transform 0.8s ease-in-out;
-    height: 100%; /* Ensures slides fill the container */
+    height: 100%;
+    width: 100%;
 }
 
 .slide {
     background-size: cover;
     background-position: center;
-    height: 100%; /* Ensures slides fill the container */
+    height: 100%;
     width: 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
     position: absolute;
     top: 0;
     left: 0;
+    background-repeat: no-repeat;
 }
 
 .slide.active {
-    opacity: 1; /* Make active slide visible */
+    opacity: 1;
     position: relative;
 }
 
+
+
+/* Overlay */
 .overlay {
     position: absolute;
     top: 0;
@@ -291,10 +301,11 @@ body {
     background: rgba(0, 0, 0, 0.4);
 }
 
+/* Banner Content */
 .content {
     position: absolute;
-    bottom: 20%; /* Adjusted for better visibility on small screens */
-    left: 10%; /* Responsive adjustments in media queries */
+    bottom: 15%;
+    left: 10%;
     transform: translateY(50%);
     color: #fff;
     z-index: 2;
@@ -343,38 +354,78 @@ p {
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .banner {
-        height: 300px; /* Adjusted height for tablets */
+        height: 60vh; /* Reduce height for medium screens */
+    }
+
+    .slide img {
+        width: 90vw; /* Adjust image width to prevent white space */
+        height: 60vh; /* Maintain aspect ratio on tablets */
     }
 
     .content {
-        bottom: 15%; /* Adjusted position for better visibility */
-        left: 5%; /* Slightly reduce left padding */
+        bottom: 10%;
+        left: 8%; /* Slightly reduce left padding */
     }
 
     .content h2 {
-        font-size: 2.5rem; /* Reduced font size */
+        font-size: 2.8rem;
+    }
+
+    .content p {
+        font-size: 1.2rem;
+    }
+
+    .prev, .next {
+        font-size: 2.5rem;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        height: 50vh; /* Adjusted height for tablets */
+    }
+
+    .slide img {
+        width: 85vw; /* Adjusted width */
+        height: 50vh; /* Maintain aspect ratio on smaller tablets */
+    }
+
+    .content {
+        bottom: 12%;
+        left: 5%; /* Center content a bit more */
+    }
+
+    .content h2 {
+        font-size: 2.5rem;
     }
     
     .content p {
-        font-size: 1.2rem; /* Reduced font size */
+        font-size: 1.1rem;
     }
     
     .prev, .next {
-        font-size: 2.5rem; /* Adjusted for tablet size */
-        padding: 10px; /* Reduced padding */
+        font-size: 2.2rem;
+        padding: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .banner {
-        height: 200px; /* Adjusted height for mobile */
+        height: 40vh; /* Adjusted height for mobile */
+    }
+
+    .slide img {
+        width: 80vw; /* Adjusted width for smaller screens */
+        height: 40vh; /* Maintain aspect ratio on mobile devices */
     }
 
     .content {
-        bottom: 10%; /* Adjusted position for better visibility */
-        left: 5%; /* Center content on small screens */
+        bottom: 8%; /* Improved spacing */
+        left: 5%; /* Centered content for mobile */
+        transform: translateY(0); /* Removed translate for better alignment */
     }
 
     .content h2 {
@@ -382,14 +433,15 @@ p {
     }
 
     .content p {
-        font-size: 1rem; /* Further reduced font size */
+        font-size: 0.9rem; /* Further reduced font size */
     }
     
     .prev, .next {
-        font-size: 2rem; /* Adjusted for mobile size */
-        padding: 8px; /* Reduced padding */
+        font-size: 1.8rem; /* Adjusted for mobile size */
+        padding: 8px;
     }
 }
+
 
 /* -----------------------------BANNER STYLES END-------------------------------- */
 
@@ -423,74 +475,61 @@ p {
  /* -----------------------------CLASSES SECTION STYLES BEGIN-------------------------------- */
  
  .classes-slider .classes-item {
-     padding: 40px 20px 0px;
-     text-align: center;
-     border-radius: 15px;
-     transition: box-shadow 0.3s ease;
-     margin-bottom: 30px;
-     margin: 0 15px; /* Adjusted margin */
-    }
-    
-    .classes-slider .classes-item:hover {
-        box-shadow: 0 8px 25px; /* Box shadow without color */
-    }
-    
-    .classes-item .ci-img img {
-        width: 150px;
-        height: 250px; /* Changed to maintain original height */
-        border-radius: 50%;
-        margin-bottom: 1px; /* Adjusted margin */
+    padding: 40px 20px 0px;
+    text-align: center;
+    border-radius: 15px;
+    transition: box-shadow 0.3s ease;
+    margin: 0 15px; /* Adjusted margin */
+    margin-bottom: 30px;
 }
 
-.classes-item h4 a {
-    font-family: "Playfair Display", serif;
-    font-size: 24px;
-    text-decoration: none;
-    transition: color 0.3s;
+.classes-slider .classes-item:hover {
+    box-shadow: 0 8px 25px; /* Box shadow without color */
 }
 
-.classes-item .ci-metas {
-    margin-top: 15px;
-    font-size: 14px;
+.classes-item .ci-img img {
+    width: 250px; /* Ensure the width and height are equal */
+    height: 250px; /* Make sure the height matches the width */
+    border-radius: 50%; /* Make the image circular */
+    margin-bottom: 10px; /* Adjusted margin */
+    object-fit: cover; /* Ensures the image fills the circle without distortion */
 }
 
-.classes-item .ci-metas .ci-meta {
-    margin-right: 15px;
-}
 
-.classes-item .ci-metas i {
-    margin-right: 5px;
-}
-
-.classes-item p {
-    margin: 20px 0;
-    font-size: 15px;
-}
-
+/* Center the Trainer Details */
 .classes-item .ci-bottom {
     border-top: 1px solid; /* Border property without color */
     padding: 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Center align items */
+}
+
+.classes-item .ci-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items vertically */
+    text-align: center;
+    margin-bottom: 10px; /* Adjust spacing */
 }
 
 .classes-item .ci-author img {
-    width: 10px;
-    height: 100px;
-    float: left;
-    border-radius: 50%;
-    margin-right: 1px;
+    width: 100px; /* Adjusted size */
+     height: 100px;
+    border-radius: 10%; 
+    margin-bottom: 10px; /* Adjusted margin for spacing */
+    object-fit: cover; 
 }
 
 .classes-item .ci-author h6 {
     font-family: "Playfair Display", serif;
-    margin-bottom: 5px;
+    margin: 5px 0;
     font-size: 16px;
 }
 
 .classes-item .ci-author p {
     font-size: 14px;
+    margin: 0; /* Remove extra spacing */
 }
 
 /* Button Styles */
@@ -503,11 +542,26 @@ p {
     display: inline-block;
     border: none;
     transition: all 0.3s;
+    margin-top: 10px; /* Space between trainer info and button */
 }
 
 .site-btn:hover {
     box-shadow: 0px 4px 10px; /* Box shadow without color */
 }
+
+/* Additional Styling Adjustments */
+.classes-item h4 a {
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.classes-item p {
+    margin: 20px 0;
+    font-size: 15px;
+}
+
 /* -----------------------------CLASSES SECTION STYLES END-------------------------------- */
 
 
@@ -532,38 +586,83 @@ p {
     text-align: center; /* Center Align Content */
     margin: 15px; /* Margin between Cards */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition Effects */
-  }
-  
-  .trainer-card:hover {
-      transform: scale(1.05); /* Scale Effect on Hover */
-  }
-  
-  .trainer-name {
-      font-size: 24px; /* Font Size for Name */
-      margin-bottom: 10px; /* Bottom Margin */
-    }
-    
-    .trainer-specialty {
-        font-size: 16px; /* Font Size for Specialty */
-        margin-bottom: 20px; /* Bottom Margin */
-    }
-    /* Specific styling for Trainer A's image */
-    .trainer-a-img img {
-        width: 100%; /* Make sure the image takes up 100% of the container's width */
-        height: auto; /* Maintain the aspect ratio */
-        object-fit: cover; /* Ensures the image covers the container while cropping if necessary */
-        max-width: 300px; /* Set a maximum width to avoid the image getting too large */
-        border-radius: 10px; /* Optional: adds rounded corners for a polished look */
-        margin-left: 15px;
-    }
-    .trainer-b-img img {
-        width: 100%; /* Make sure the image takes up 100% of the container's width */
-        height: auto; /* Maintain the aspect ratio */
-        object-fit: cover; /* Ensures the image covers the container while cropping if necessary */
-        max-width: 300px; /* Set a maximum width to avoid the image getting too large */
-        border-radius: 10px; /* Optional: adds rounded corners for a polished look */
-        margin-left: 15px;
-    }
+}
+
+.trainer-name {
+    font-size: 24px; /* Font Size for Name */
+    margin-bottom: 10px; /* Bottom Margin */
+}
+
+.trainer-specialty {
+    font-size: 16px; /* Font Size for Specialty */
+    margin-bottom: 20px; /* Bottom Margin */
+}
+
+.ci-img {
+    width: 250px; /* Size of the image container */
+    height: 250px; /* Size of the image container */
+    overflow: hidden; /* Hide overflow */
+    border-radius: 50%; /* Ensure circular shape */
+    border: 4px solid transparent; /* Base border */
+    background-image: linear-gradient(black, black), linear-gradient(to right, #2c2c2c, #4c4c4c); /* Gradient border */
+    background-origin: border-box; /* Ensure the gradient is on the border */
+    background-clip: content-box, border-box; /* Clip background */
+    position: relative; /* Position relative for overlay */
+    margin: 0 auto; /* Center image container in card */
+    display: flex; /* Use flex for centering */
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Horizontally center image */
+}
+
+.ci-img img {
+    width: auto; /* Let the width be automatic */
+    height: 100%; /* Fill the container height */
+    object-fit: cover; /* Ensures proper aspect ratio and cover the entire area */
+    position: absolute; /* Position absolutely to control placement */
+    top: 0; /* Aligns the image to the top */
+    left: 50%; 
+    transform: translateX(-50%); /* Centers the image horizontally */
+    transition: transform 0.4s ease; /* Smooth transition */
+}
+
+.ci-img:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
+}
+
+.ci-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Dark overlay */
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.ci-img:hover::before {
+    opacity: 1; /* Show overlay on hover */
+}
+
+.ci-img .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.ci-img:hover .overlay-text {
+    opacity: 1; /* Fade in text on hover */
+}
+
+
 
   
     /* Social Icons Styles */
