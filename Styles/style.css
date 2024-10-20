@@ -375,7 +375,7 @@ p {
     height: 100px;
     float: left;
     border-radius: 50%;
-    margin-right: 5px;
+    margin-right: 1px;
 }
 
 .classes-item .ci-author h6 {

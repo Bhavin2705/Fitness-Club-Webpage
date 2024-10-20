@@ -1,11 +1,12 @@
+// Redirect to the login page
 function redirectToLogin() {
-    window.location.href = 'login.html'; // Change this to your actual login page URL
+    window.location.href = 'login.html'; // Adjust to your actual login page URL
 }
 
+// Apply dark mode styles
 const body = document.body;
 const navbar = document.querySelector('.navbar');
 const darkStylesheet = document.getElementById('darkModeStylesheet');
-
 body.classList.add('dark-mode');
 navbar.classList.add('dark-mode');
 darkStylesheet.disabled = false;
@@ -15,86 +16,7 @@ const bannerHeight = banner ? banner.offsetHeight : 0;
 
 const userIcon = document.getElementById("userIcon");
 
-// Function to update login status in local storage
-function updateUserLoginStatus(email, status) {
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key === email) { // Check for exact match
-            let userData = JSON.parse(localStorage.getItem(key));
-            userData.loggedIn = status; // Set loggedIn flag
-            localStorage.setItem(key, JSON.stringify(userData)); // Update localStorage
-            break;
-        }
-    }
-}
-
-// Function to check if user is logged in and show/hide UI elements accordingly
-function checkUserStatus() {
-    let userData;
-
-    // Loop through localStorage to find user data
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.includes("@")) { // Check if any email is stored
-            userData = JSON.parse(localStorage.getItem(key));
-            break;
-        }
-    }
-
-    // If userData is not found or user is not logged in
-    if (!userData || !userData.loggedIn) {
-        console.log("User not logged in or no stored data");
-        document.getElementById('registerNow').style.display = 'block'; // Show register button
-        userIcon.style.display = 'none'; // Hide user icon
-    } else {
-        // If user is logged in
-        console.log("User logged in");
-        document.getElementById('registerNow').style.display = 'none'; // Hide register button
-        userIcon.style.display = 'flex'; // Show user icon
-
-        // Call the function to update content based on gender
-        updateContentBasedOnGender();
-    }
-}
-
-// Function to update content based on gender
-function updateContentBasedOnGender() {
-    const gender = localStorage.getItem('gender'); // Retrieve gender from local storage
-
-    // JSON data for gender-specific content
-    const contentData = {
-        male: {
-            welcomeMessage: "Welcome to Energifit, gentlemen!",
-            features: ["Personal Training", "Nutrition Plans", "Exclusive Men's Workouts"],
-            image: "path/to/male-image.jpg"
-        },
-        female: {
-            welcomeMessage: "Welcome to Energifit, ladies!",
-            features: ["Personal Training", "Nutrition Plans", "Exclusive Women's Workouts"],
-            image: "path/to/female-image.jpg"
-        }
-    };
-
-    // Update the DOM with the retrieved content
-    if (gender && contentData[gender]) {
-        document.getElementById('welcome-message').textContent = contentData[gender].welcomeMessage;
-
-        const featuresList = document.getElementById('features-list');
-        featuresList.innerHTML = ''; // Clear existing content
-        contentData[gender].features.forEach(feature => {
-            const li = document.createElement('li');
-            li.textContent = feature;
-            featuresList.appendChild(li);
-        });
-
-        const genderImage = document.getElementById('gender-image');
-        genderImage.src = contentData[gender].image;
-    }
-}
-
-// Initial call to check user status
-checkUserStatus();
-
+// Scroll event logic for changing navbar background based on scroll position
 const onScroll = () => {
     if (window.scrollY > bannerHeight) {
         navbar.style.backgroundColor = '#333';
@@ -105,95 +27,218 @@ const onScroll = () => {
     }
 };
 
+// Attach the scroll event listener
 window.addEventListener('scroll', onScroll);
 
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const totalSlides = slides.length;
+// Update login status in local storage
+function updateUserLoginStatus(email, status) {
+    if (localStorage.getItem(email)) { // Check if the email exists in local storage
+        let userData = JSON.parse(localStorage.getItem(email));
+        userData.loggedIn = status; // Set loggedIn flag
+        localStorage.setItem(email, JSON.stringify(userData)); // Update localStorage
+    }
+}
 
-function showSlide(index) {
-    slides.forEach((slide) => {
-        slide.classList.remove('active');
-        slide.style.opacity = '0';
-        slide.style.position = 'absolute';
+// Check if user is logged in and show/hide UI elements accordingly
+function checkUserStatus() {
+    let userData;
+
+    // Loop through localStorage to find user data
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.includes("@")) { // Check if any email is stored
+            userData = JSON.parse(localStorage.getItem(key));
+            if (userData.loggedIn) {
+                localStorage.setItem('loggedInEmail', key); // Store the logged-in email
+                break;
+            } else {
+                userData = null; // Reset data if not logged in
+            }
+        }
+    }
+
+    // Show/hide elements based on login status
+    if (!userData) {
+        document.getElementById('registerNow').style.display = 'block'; // Show register button
+        userIcon.style.display = 'none'; // Hide user icon
+        document.getElementById('accountButton').textContent = 'My Account'; // Reset button text
+    } else {
+        document.getElementById('registerNow').style.display = 'none'; // Hide register button
+        userIcon.style.display = 'flex'; // Show user icon
+        document.getElementById('accountButton').textContent = userData.name; // Set button text to user's name
+        updateContentBasedOnGender(userData.gender); // Update content based on gender
+    }
+}
+
+
+// Update content based on gender
+function updateContentBasedOnGender(gender) {
+    const programSection = document.querySelector('.classes-slider');
+    const trainerSection = document.querySelector('.trainers-section .owl-carousel');
+
+    // Male and female program data
+    const programData = {
+        male: [
+            {
+                image: './assets/strength-training.jpg',
+                title: 'Strength Training',
+                description: 'Build muscle and increase strength with this personalized program.',
+                trainerImage: './assets/trainer1.jpg',
+                trainerName: 'John Doe',
+                trainerRole: 'Fitness Coach'
+            },
+            {
+                image: './assets/Hiit.jpg',
+                title: 'Cardio Blast',
+                description: 'Get your heart pumping with our intense cardio sessions.',
+                trainerImage: './assets/trainer3.jpg',
+                trainerName: 'Alex Smith',
+                trainerRole: 'Cardio Specialist'
+            },
+            {
+                image: './assets/kickboxing.jpg',
+                title: 'Kickboxing',
+                description: 'Learn self-defense and boost your stamina with high-energy kickboxing classes.',
+                trainerImage: './assets/trainer5.jpg',
+                trainerName: 'Mike Tyson',
+                trainerRole: 'Kickboxing Instructor'
+            },
+            {
+                image: './assets/crossfit.jpg',
+                title: 'CrossFit Training',
+                description: 'Intensive training to build endurance, strength, and agility through varied workouts.',
+                trainerImage: './assets/trainer6.jpg',
+                trainerName: 'Chris Evans',
+                trainerRole: 'CrossFit Coach'
+            }
+        ],
+        
+        female: [
+            {
+                image: './assets/yoga-class.jpg',
+                title: 'Yoga Therapy',
+                description: 'Relax, refresh, and renew with our expert-led yoga sessions.',
+                trainerImage: './assets/trainer2.jpg',
+                trainerName: 'Jane Doe',
+                trainerRole: 'Yoga Instructor'
+            },
+            {
+                image: './assets/pilates.jpg',
+                title: 'Pilates Training',
+                description: 'Enhance your core strength and flexibility with our Pilates sessions.',
+                trainerImage: './assets/trainer4.jpg',
+                trainerName: 'Emily Stone',
+                trainerRole: 'Pilates Instructor'
+            },
+            {
+                image: './assets/dance-fitness.jpg',
+                title: 'Dance Fitness',
+                description: 'Enjoy a fun, high-energy workout with dance routines that improve cardio and coordination.',
+                trainerImage: './assets/trainer7.jpg',
+                trainerName: 'Sophie Turner',
+                trainerRole: 'Dance Instructor'
+            },
+            {
+                image: './assets/aerobics.jpg',
+                title: 'Aerobics Workout',
+                description: 'Boost your energy and burn calories with rhythmic aerobic exercises.',
+                trainerImage: './assets/trainer8.jpg',
+                trainerName: 'Linda Williams',
+                trainerRole: 'Aerobics Coach'
+            }
+        ]        
+    };
+
+    // Clear the existing content
+    programSection.innerHTML = '';
+    trainerSection.innerHTML = '';
+
+    // Generate program and trainer items dynamically based on gender
+    programData[gender].forEach((program, index) => {
+        // Create program item
+        const programItem = `
+            <div class="classes-item">
+                <div class="ci-img">
+                    <img src="${program.image}" alt="${program.title}">
+                </div>
+                <div class="ci-text">
+                    <h4><a href="#">${program.title}</a></h4>
+                    <p>${program.description}</p>
+                </div>
+                <div class="ci-bottom">
+                    <div class="ci-author">
+                        <img src="${program.trainerImage}" alt="${program.trainerName}">
+                        <div class="author-text">
+                            <h6>${program.trainerName}</h6>
+                            <p>${program.trainerRole}</p>
+                        </div>
+                    </div>
+                    <a href="" class="site-btn sb-gradient">Join Now</a>
+                </div>
+            </div>
+        `;
+        programSection.innerHTML += programItem;
+
+        // Create trainer item
+        const trainerItem = `
+            <div class="classes-item">
+                <div class="ci-img">
+                    <img src="${program.trainerImage}" alt="${program.trainerName}">
+                </div>
+                <h4><a href="#">${program.trainerName}</a></h4>
+                <p>${program.trainerRole}</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        `;
+        trainerSection.innerHTML += trainerItem;
     });
-
-    slides[index].classList.add('active');
-    slides[index].style.opacity = '1';
-    slides[index].style.position = 'relative';
 }
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    showSlide(currentSlide);
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    showSlide(currentSlide);
-}
-
-setInterval(nextSlide, 5000);
-showSlide(currentSlide);
-
-// Function to show the cookie banner after a delay
-function showCookieBanner() {
-    const banner = document.getElementById('cookie-banner');
-    banner.classList.remove('hidden'); // Show the banner
-    banner.classList.add('show'); // Add the show class for animation
-}
-
-// Function to handle cookie acceptance
-function acceptCookies() {
-    console.log('Cookies accepted');
-    document.getElementById('cookie-banner').style.display = 'none';
-}
-
-// Function to handle cookie denial
-function denyCookies() {
-    console.log('Cookies denied');
-    document.getElementById('cookie-banner').style.display = 'none';
-}
-
-// Use setTimeout to delay the banner appearance
-setTimeout(showCookieBanner, 3500); // Show the banner after 3.5 seconds
-
-// Event listeners for buttons
-document.getElementById('accept-cookies').addEventListener('click', acceptCookies);
-document.getElementById('deny-cookies').addEventListener('click', denyCookies);
 
 // Simulate login success (call this function after successful login)
-function loginSuccess(email) {
-    updateUserLoginStatus(email, true); // Update the loggedIn flag
-    document.getElementById('registerNow').style.display = 'none'; // Hide register button
-    userIcon.style.display = 'flex'; // Show user icon
+function loginSuccess(email, gender, name) {
+    const userData = {
+        email: email,
+        loggedIn: true,
+        gender: gender,
+        name: name // Store the user's name
+    };
+    localStorage.setItem(email, JSON.stringify(userData)); // Save user data to localStorage
     checkUserStatus(); // Update UI based on new login status
 }
 
 // Simulate logout functionality
+// Simulate logout functionality
 document.getElementById('logout').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default link action
-    updateUserLoginStatus(localStorage.getItem('loggedInEmail'), false); // Update the loggedIn flag
+    const email = localStorage.getItem('loggedInEmail');
+    updateUserLoginStatus(email, false); // Update the loggedIn flag
     document.getElementById('registerNow').style.display = 'block'; // Show register button
     userIcon.style.display = 'none'; // Hide user icon
-    // redirectToLogin(); // Redirect to login page
+    localStorage.removeItem('loggedInEmail'); // Remove logged in email
+    
+    // Reload the page to revert to original HTML
+    location.reload();
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Add event listener to the dropdown toggle button
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
 
+document.addEventListener('DOMContentLoaded', function () {
+    checkUserStatus(); // Initial check on page load
+
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
     if (dropdownToggle) {
         dropdownToggle.addEventListener('click', function (event) {
             event.stopPropagation(); // Prevent event bubbling
-            const dropdownMenu = this.nextElementSibling; // Select the dropdown menu
+            const dropdownMenu = this.nextElementSibling;
             dropdownMenu.classList.toggle('show'); // Toggle the 'show' class
         });
     }
 
-    // Hide dropdown on clicking outside
     window.addEventListener('click', function (event) {
-        if (!event.target.closest('.user-icon-container')) { // Check if click is outside the dropdown
+        if (!event.target.closest('.user-icon-container')) {
             const dropdowns = document.querySelectorAll('.dropdown-menu');
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove('show');
