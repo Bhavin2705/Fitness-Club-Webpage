@@ -33,45 +33,51 @@ window.addEventListener('scroll', onScroll);
 document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     const slides = document.querySelectorAll(".slide");
+    const slidesContainer = document.querySelector(".slides");
     const totalSlides = slides.length;
-    const intervalTime = 3000; // 3 seconds for each slide
+    const intervalTime = 5000; // 3 seconds for each slide
+    let isTransitioning = false;
+
+    // Clone the first slide and append it to the end for smooth loop
+    const firstClone = slides[0].cloneNode(true);
+    slidesContainer.appendChild(firstClone);
 
     // Function to change the active slide
     function changeSlide() {
-        slides[currentIndex].classList.remove("active"); // Remove active class from the current slide
-        currentIndex = (currentIndex + 1) % totalSlides; // Move to the next slide
-        slides[currentIndex].classList.add("active"); // Add active class to the next slide
+        if (isTransitioning) return; // Prevent triggering during transition
+
+        isTransitioning = true;
+        currentIndex++;
+        slidesContainer.style.transition = "transform 0.5s ease-in-out";
+
+        if (currentIndex < totalSlides) {
+            slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        } else {
+            // When reaching the cloned slide (index beyond original slides)
+            slidesContainer.style.transform = `translateX(-${totalSlides * 100}%)`;
+            setTimeout(() => {
+                // Disable the transition, jump to the first slide, then re-enable the transition
+                slidesContainer.style.transition = "none";
+                currentIndex = 0;
+                slidesContainer.style.transform = `translateX(0%)`;
+            }, 500); // Match this time with your transition time (0.5s)
+        }
+
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 500); // Match this with transition duration
+    }
+
+    // Ensure the first slide is active
+    if (totalSlides > 0) {
+        slidesContainer.style.transform = "translateX(0%)";
     }
 
     // Set an interval to change slides automatically
-    setInterval(changeSlide, intervalTime);
+    if (totalSlides > 1) {
+        setInterval(changeSlide, intervalTime);
+    }
 });
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const cookieBanner = document.getElementById('cookie-banner');
-    const acceptCookies = document.getElementById('accept-cookies');
-    const denyCookies = document.getElementById('deny-cookies');
-
-    // Show the cookie consent banner after 4 seconds
-    setTimeout(() => {
-        cookieBanner.classList.remove('hidden'); // Remove the hidden class
-        cookieBanner.classList.add('show'); // Add show class
-    }, 4000);
-
-    // Accept cookies
-    acceptCookies.addEventListener('click', () => {
-        cookieBanner.classList.remove('show'); // Hide the banner
-        cookieBanner.classList.add('hidden'); // Add hidden class
-    });
-
-    // Deny cookies
-    denyCookies.addEventListener('click', () => {
-        cookieBanner.classList.remove('show'); // Hide the banner
-        cookieBanner.classList.add('hidden'); // Add hidden class
-    });
-});
-
 
 
 // Update login status in local storage
@@ -269,18 +275,24 @@ document.getElementById('logout').addEventListener('click', function(event) {
 });
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navbarMenu = document.querySelector('.navbar-menu');
+document.addEventListener('DOMContentLoaded', function () {
+    checkUserStatus(); // Initial check on page load
 
-    // Toggle the visibility of the navbar-menu when the menuToggle is checked
-    menuToggle.addEventListener('change', function() {
-        if (this.checked) {
-            navbarMenu.style.display = 'flex';
-        } else {
-            navbarMenu.style.display = 'none';
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function (event) {
+            event.stopPropagation(); // Prevent event bubbling
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle('show'); // Toggle the 'show' class
+        });
+    }
+
+    window.addEventListener('click', function (event) {
+        if (!event.target.closest('.user-icon-container')) {
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
         }
     });
 });
-
-
