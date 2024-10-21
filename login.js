@@ -31,7 +31,7 @@ signUpForm.addEventListener("submit", (event) => {
   }
 
   // Store user data in local storage
-  const userData = { name, email, password, gender, loggedIn: false }; // Initialize with loggedIn status
+  const userData = { name, email, password, gender, loggedIn: false, loginCount: 0 }; // Initialize with loginCount
   localStorage.setItem(email, JSON.stringify(userData));
 
   signUpForm.reset();
@@ -53,11 +53,20 @@ signInForm.addEventListener("submit", (event) => {
     if (password === userData.password) {
       // Update user data to mark them as logged in
       userData.loggedIn = true; // Set loggedIn to true
+
+      // Track the number of logins
+      userData.loginCount = (userData.loginCount || 0) + 1; // Increment login count
       localStorage.setItem(email, JSON.stringify(userData)); // Update the stored data
+
+      // Show appropriate alert based on login count
+      if (userData.loginCount === 1) {
+        alert("Sign in successful!"); // First login
+      } else {
+        alert(`Sign in successful! Welcome back, ${userData.name}!`); // Subsequent logins
+      }
 
       // Redirect to index.html after successful login
       window.location.href = "index.html"; // Redirect to the main page
-      alert("Sign in successful! Welcome back.");
     } else {
       alert("Incorrect password. Please try again.");
     }
