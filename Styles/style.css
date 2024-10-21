@@ -8,7 +8,7 @@ body {
     background-color: #ffffff; 
     color: #333333; 
     transition: background-color 0.3s ease, color 0.3s ease;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 /* Navbar Styles */
@@ -321,38 +321,6 @@ p {
     font-size: 1.5rem;
 }
 
-/* Navigation Arrows */
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 2px solid #FF6F61;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 15px;
-    color: #FF6F61;
-    z-index: 5;
-    transition: all 0.3s ease;
-}
-
-.prev {
-    left: 20px;
-}
-
-.next {
-    right: 20px;
-}
-
-.prev:hover, .next:hover {
-    background-color: #FF6F61;
-    color: #fff;
-    transform: translateY(-50%) scale(1.1);
-    border-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
 /* Media Queries */
 @media (max-width: 992px) {
     .banner {
@@ -377,10 +345,7 @@ p {
         font-size: 1.2rem;
     }
 
-    .prev, .next {
-        font-size: 2.5rem;
-        padding: 12px;
-    }
+   
 }
 
 @media (max-width: 768px) {
@@ -406,10 +371,7 @@ p {
         font-size: 1.1rem;
     }
     
-    .prev, .next {
-        font-size: 2.2rem;
-        padding: 10px;
-    }
+   
 }
 
 @media (max-width: 480px) {
@@ -436,10 +398,7 @@ p {
         font-size: 0.9rem; /* Further reduced font size */
     }
     
-    .prev, .next {
-        font-size: 1.8rem; /* Adjusted for mobile size */
-        padding: 8px;
-    }
+    
 }
 
 
@@ -790,14 +749,14 @@ p {
     /* -----------------------------Testimonials SECTION STYLES Begin-------------------------------- */
     .testimonial-area {
         background-image: url('../assets/parallaximg.jpg'); /* Replace with your image path */
-        background-size: cover; /* Ensures the image covers the entire area */
+        background-size: contain; /* Ensures the entire image is visible */
         background-position: center; /* Centers the background image */
-        background-attachment: fixed; /* Fixes the background for parallax effect */
+        background-attachment: fixed; /* Keeps the parallax effect */
         background-repeat: no-repeat; /* Prevents the background from repeating */
-        position: relative;
-        z-index: 2;
-        padding: 40px 0; /* Increased padding to create more space */
-        color: #fff; /* Ensures text is visible on top of the background */
+        padding: 40px 0; /* Maintain padding */
+        width: 100%; /* Ensures full width */
+        overflow: hidden; /* Prevents overflow issues */
+        background-color: #000; /* Optional: Add a background color to fill any gaps */
     }
     
     .testimonial-area .container {
@@ -956,10 +915,45 @@ p {
         height: 100px;
         border-radius: 30%;
     }
+
+    @media (max-width: 1440px) {
+        .testimonial-area {
+            background-size: contain; /* Maintain the full image visibility */
+        }
+    }
+    
+    /* 1024px */
+    @media (max-width: 1024px) {
+        .testimonial-area {
+            background-size: contain; /* Ensures proper scaling on tablets */
+        }
+    }
+    
+    /* 992px */
+    @media (max-width: 992px) {
+        .testimonial-area {
+            background-size: contain; /* Adjusts to keep the image fully visible */
+        }
+    }
+    
+    /* 768px */
+    @media (max-width: 768px) {
+        .testimonial-area {
+            background-size: contain; /* Keeps scaling for smaller devices */
+        }
+    }
+    
+    /* 425px */
+    @media (max-width: 425px) {
+        .testimonial-area {
+            background-size: contain; /* Ensures mobile-friendly scaling */
+            background-position: center top; /* Adjust positioning to ensure visibility */
+        }
+    }
     
     
     
-    /* -----------------------------PRICING SECTION STYLES END-------------------------------- */
+    /* -----------------------------Testimonials SECTION STYLES END-------------------------------- */
     
     
     
