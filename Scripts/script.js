@@ -103,7 +103,7 @@ function updateContentBasedOnGender(gender) {
                 description: 'Build muscle and increase strength with this personalized program.',
                 trainerImage: './assets/trainer1.jpg',
                 trainerName: 'John Doe',
-                trainerRole: 'Fitness Coach'
+                trainerRole: 'Strength Trainer'
             },
             {
                 image: './assets/Hiit.jpg',

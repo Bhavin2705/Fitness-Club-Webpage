@@ -5,7 +5,7 @@ html{
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    background-color: #ffffff; 
+    background-color: black; 
     color: #333333; 
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
@@ -240,9 +240,6 @@ body {
 }
 
 
-
-
-
 /* -----------------------NAVBAR END------------------------------ */
 
 
@@ -272,7 +269,7 @@ body {
 }
 
 .slide {
-    background-size: cover;
+    background-size: cover ;
     background-position: center;
     height: 100%;
     width: 100%;
@@ -328,8 +325,9 @@ p {
     }
 
     .slide img {
-        width: 90vw; /* Adjust image width to prevent white space */
-        height: 60vh; /* Maintain aspect ratio on tablets */
+        width: 70vw; /* Adjust image width to prevent white space */
+        height: 70vh; /* Maintain aspect ratio on tablets */
+        
     }
 
     .content {
@@ -404,7 +402,11 @@ p {
 
 /* -----------------------------BANNER STYLES END-------------------------------- */
 
-/* aBOUT Section Title Styles */
+
+
+
+
+/* ABOUT Section Title Styles */
 
 /* -----------------------------ABOUT SECTION STYLES BEGIN-------------------------------- */
 
