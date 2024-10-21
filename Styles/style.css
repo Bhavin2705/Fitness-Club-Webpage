@@ -1262,5 +1262,24 @@ body {
     .footer__bar a:hover {
         color: #ffffff;
     }
+
+
+    @media (max-width: 398px) {
+        .footer__col {
+            text-align: center; /* Center text */
+        }
+    
+        .footer__social-links {
+            justify-content: center; /* Center social links */
+            display: flex; /* Ensure flex is applied for centering */
+            margin: 0 auto; /* Center the list */
+            padding: 0; /* Remove padding */
+        }
+    
+        .footer__social-links a {
+            margin: 0 5px; /* Add some horizontal spacing between icons */
+        }
+    }
+    
     
     /* -----------------------------FOOTER SECTION STYLES END-------------------------------- */
