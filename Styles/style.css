@@ -303,7 +303,7 @@ body {
 .banner {
     position: relative;
     width: 100%;
-    height: auto;
+    /* height: auto; */
     overflow: hidden;
 }
 
@@ -328,7 +328,7 @@ body {
     width: 100%;
     height: auto;
     max-height: 100vh;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .overlay {
