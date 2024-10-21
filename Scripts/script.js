@@ -48,6 +48,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptCookies = document.getElementById('accept-cookies');
+    const denyCookies = document.getElementById('deny-cookies');
+
+    // Show the cookie consent banner after 4 seconds
+    setTimeout(() => {
+        cookieBanner.classList.remove('hidden'); // Remove the hidden class
+        cookieBanner.classList.add('show'); // Add show class
+    }, 4000);
+
+    // Accept cookies
+    acceptCookies.addEventListener('click', () => {
+        cookieBanner.classList.remove('show'); // Hide the banner
+        cookieBanner.classList.add('hidden'); // Add hidden class
+    });
+
+    // Deny cookies
+    denyCookies.addEventListener('click', () => {
+        cookieBanner.classList.remove('show'); // Hide the banner
+        cookieBanner.classList.add('hidden'); // Add hidden class
+    });
+});
+
+
+
 // Update login status in local storage
 function updateUserLoginStatus(email, status) {
     if (localStorage.getItem(email)) { // Check if the email exists in local storage
@@ -243,24 +269,18 @@ document.getElementById('logout').addEventListener('click', function(event) {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    checkUserStatus(); // Initial check on page load
+document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navbarMenu = document.querySelector('.navbar-menu');
 
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    if (dropdownToggle) {
-        dropdownToggle.addEventListener('click', function (event) {
-            event.stopPropagation(); // Prevent event bubbling
-            const dropdownMenu = this.nextElementSibling;
-            dropdownMenu.classList.toggle('show'); // Toggle the 'show' class
-        });
-    }
-
-    window.addEventListener('click', function (event) {
-        if (!event.target.closest('.user-icon-container')) {
-            const dropdowns = document.querySelectorAll('.dropdown-menu');
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
+    // Toggle the visibility of the navbar-menu when the menuToggle is checked
+    menuToggle.addEventListener('change', function() {
+        if (this.checked) {
+            navbarMenu.style.display = 'flex';
+        } else {
+            navbarMenu.style.display = 'none';
         }
     });
 });
+
+
