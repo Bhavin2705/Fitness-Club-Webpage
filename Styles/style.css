@@ -20,6 +20,7 @@ body {
     padding: 15px;
     background-color: transparent;
     transition: background-color 0.3s ease;
+    white-space: nowrap; /* Prevent wrapping of navbar items */
 }
 
 .navbar-brand .logo {
@@ -32,7 +33,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 40px;
-    flex-grow: 1;
+    flex-grow: 1; /* Allow menu to take available space */
 }
 
 .nav-link {
@@ -161,15 +162,6 @@ body {
     opacity: 1;
 }
 
-.menu-icon {
-    display: none;
-    font-size: 22px;
-    color: #00A8CC;
-    cursor: pointer;
-}
-
-
-
 /* Breakpoints */
 @media (max-width: 1400px) {
     .navbar-brand .logo {
@@ -179,7 +171,7 @@ body {
 
 @media (max-width: 1200px) {
     .navbar-menu {
-        gap: 30px; /* Adjust gap */
+        gap: 20px; /* Adjust gap */
     }
     
     #user-controls {
@@ -187,14 +179,6 @@ body {
     }
 }
 
-@media (max-width: 1140px) {
-    .navbar-menu {
-        gap: 20px;
-    }
-    .navbar-brand .logo {
-        width: 170px;
-    }
-}
 
 #menuToggle {
     display: none;
